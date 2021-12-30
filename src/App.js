@@ -1,9 +1,9 @@
-
+import "normalize.css";
 
 function App() {
   return (
-    <div className="App">
-      Hell world
+    <div>
+      Hello world
     </div>
   );
 }
