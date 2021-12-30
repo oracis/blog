@@ -1,0 +1,49 @@
+.banner {
+  position: relative;
+  width: 1280px;
+  height: 360px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+
+  .bannerBackground {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .person {
+    position: relative;
+    width: 100%;
+    height: 160px;
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      object-fit: cover;
+      left: 40px;
+      bottom: 10px;
+      border-radius: 10px;
+
+    }
+
+    .info {
+      position: absolute;
+      left: 260px;
+
+      .title {
+        font-size: 28px;
+        line-height: 50px;
+        padding-top: 10px;
+      }
+
+      .description {
+        font-size: 18px;
+        color: #333333;
+        line-height: 32px;
+        padding-right: 30px;
+      }
+    }
+  }
+}

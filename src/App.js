@@ -1,11 +1,6 @@
 import "normalize.css";
+import Index from "./container/home/";
 
-function App() {
-  return (
-    <div>
-      Hello world
-    </div>
-  );
-}
+const App = () => (<Index />);
 
 export default App;
