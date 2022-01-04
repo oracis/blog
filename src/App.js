@@ -1,6 +1,7 @@
 import "normalize.css";
-import Index from "./container/home/";
+import Home from "./container/home/";
+import "./style.scss"
 
-const App = () => (<Index />);
+const App = () => (<Home />);
 
 export default App;
