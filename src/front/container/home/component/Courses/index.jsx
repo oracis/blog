@@ -2,7 +2,7 @@ import style from "./style.module.scss";
 
 const Courses = () => {
     return (
-        <div className={style.courses}>
+        <div className={"wrapper"}>
             <ul className={style.list}>
                 <li className={style.item}>
                     <img className={style.img} src="https://serverless-learning-static-files.oss-cn-beijing.aliyuncs.com/images/course%20vue3.png" alt="" />
