@@ -15,5 +15,28 @@
     }
 }
 
+.sidebar {
+    :global(.iconfont) {
+        margin-right: 10px;
+    }
+}
+
+.header {
+    &:global(.ant-layout-header) {
+        height: 32px;
+        line-height: 32px;
+    }
+
+    :global(.iconfont) {
+        color: #FFF;
+    }
+}
+
+.content {
+    margin: 24px 16px;
+    padding: 24px;
+    height: calc(100vh - 112px);
+}
+
 
 
