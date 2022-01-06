@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Button } from 'antd';
 import style from "./style.module.scss";
+import { getDataFromString } from "../../../common/util"
+
+const listData = getDataFromString(window.localStorage.homeData);
 
 const AreaList = () => {
-    const [list, setList] = useState([]);
+    const [list, setList] = useState(listData);
     const handleAddButton = () => {
         const newList = [...list];
         newList.push({});
@@ -17,7 +20,7 @@ const AreaList = () => {
     }
 
     const handleSaveButton = () => {
-        console.log("save")
+        window.localStorage.homeData = JSON.stringify(list);
     }
 
     return (
