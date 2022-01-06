@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Menu } from 'antd';
 import style from "./style.module.scss";
+import AreaList from "../areaList";
 
 const { Header, Sider, Content } = Layout;
 
@@ -31,7 +32,7 @@ const HomeManagement = () => {
                     <span className="iconfont" onClick={toggle} dangerouslySetInnerHTML={{__html: collapsed ? "&#xe62c;" : "&#xe629;"}} />
                 </Header>
                 <Content className={style.content}>
-                    Content
+                    <AreaList />
                 </Content>
             </Layout>
         </Layout>
