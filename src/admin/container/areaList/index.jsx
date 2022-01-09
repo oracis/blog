@@ -1,9 +1,15 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { Button } from 'antd';
 import style from "./style.module.scss";
-import { getDataFromString } from "../../../common/util"
+import { parseDataFromString } from "../../../common/util"
 
-const listData = getDataFromString(window.localStorage.homeData);
+const schema = parseDataFromString(window.localStorage.schema);
+
+const listData = [...schema?.children].splice(3);
+
+console.log(listData)
+
+console.log(schema, "schema")
 
 const AreaList = (props, ref) => {
     const [list, setList] = useState(listData);

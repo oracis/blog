@@ -1,11 +1,13 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { Input } from 'antd';
+import { parseDataFromString } from "../../../common/util"
 import style from "./style.module.scss";
 
 const { TextArea } = Input;
 
-const originTitle = window.localStorage.title || "";
-const originDescription = window.localStorage.description || "";
+const schema = parseDataFromString(window.localStorage.schema);
+const originTitle = schema.children?.[0]?.attributes?.title || "";
+const originDescription = schema.children?.[0]?.attributes?.description || "";
 
 const PageSetting = (props, ref) => {
     const [title, setTitle] = useState(originTitle);

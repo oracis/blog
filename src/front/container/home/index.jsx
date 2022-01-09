@@ -1,9 +1,10 @@
 import Banner from "./component/Banner/";
 import Courses from "./component/Courses/";
 import Footer from "./component/Footer";
-import { getDataFromString } from "../../../common/util"
+import { parseDataFromString } from "../../../common/util"
 
-const listData = getDataFromString(window.localStorage.homeData);
+const schema = parseDataFromString(window.localStorage.schema);
+const listData = [...schema?.children].splice(3);
 
 const Home = () => {
     return (
