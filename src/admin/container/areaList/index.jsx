@@ -1,18 +1,9 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { Button } from 'antd';
 import style from "./style.module.scss";
-import { parseDataFromString } from "../../../common/util"
-
-const schema = parseDataFromString(window.localStorage.schema);
-
-const listData = [...schema?.children].splice(3);
-
-console.log(listData)
-
-console.log(schema, "schema")
 
 const AreaList = (props, ref) => {
-    const [list, setList] = useState(listData);
+    const [list, setList] = useState([]);
     const handleAddButton = () => {
         const newList = [...list];
         newList.push({});
