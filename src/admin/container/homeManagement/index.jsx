@@ -20,8 +20,8 @@ const HomeManagement = () => {
     const areaListRef = useRef();
 
     const handleSaveButton = () => {
-        const children = areaListRef.current.children;
-        const schema = { name: "Page", attributes: {}, children };
+        const { getChildrenSchema } = areaListRef.current;
+        const schema = { name: "Page", attributes: {}, children: getChildrenSchema() };
         window.localStorage.schema = JSON.stringify(schema);
     }
 

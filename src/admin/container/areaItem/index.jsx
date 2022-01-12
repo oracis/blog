@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, {useState, forwardRef, useImperativeHandle} from 'react';
 import { Modal, Button, Select } from 'antd';
 import style from "./style.module.scss";
 
 const { Option } = Select;
 
-const AreaItem = (props) => {
-    const { index, item, removeItemFromChildren, changeItemFromChildren } = props;
+const SELECT_OPTIONS = { Banner: "Banner 组件", List: "List 组件", Footer: "Footer 组件" };
+
+const AreaItem = (props, ref) => {
+    const { index, item, removeItemFromChildren } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [itemSchema, setItemSchema] = useState(item);
+    const [tempItemSchema, setTempItemSchema] = useState(item);
+
+    useImperativeHandle(ref, () => ({
+        getItemSchema: () => {
+            return itemSchema;
+        }
+    }));
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -15,17 +24,17 @@ const AreaItem = (props) => {
 
     const handleModalConfirm = () => {
         setIsModalVisible(false);
-        changeItemFromChildren(index, itemSchema);
+        setItemSchema(tempItemSchema);
     }
 
     const handleModalCancel = () => {
         setIsModalVisible(false);
-        setItemSchema(item);
+        setTempItemSchema(itemSchema);
     }
 
     const handleSelectorChange = (value) => {
         const schema = { name: value, attributes: {}, children: [] };
-        setItemSchema(schema);
+        setTempItemSchema(schema);
     }
 
     return (
@@ -36,10 +45,12 @@ const AreaItem = (props) => {
             </span>
 
             <Modal title="组件选择" visible={isModalVisible} cancelText="取消" okText="确认" onOk={handleModalConfirm} onCancel={handleModalCancel}>
-                <Select onChange={handleSelectorChange}>
-                    <Option value="Banner">Banner 组件</Option>
-                    <Option value="List">List 组件</Option>
-                    <Option value="Footer">Footer 组件</Option>
+                <Select value={tempItemSchema.name} onChange={handleSelectorChange}>
+                    {
+                        Object.keys(SELECT_OPTIONS).map(key => (
+                            <Option value={key} key={key}>{SELECT_OPTIONS[key]}</Option>
+                        ))
+                    }
                 </Select>
             </Modal>
         }
@@ -47,4 +58,4 @@ const AreaItem = (props) => {
     );
 }
 
-export default AreaItem;
+export default forwardRef(AreaItem);
