@@ -3,28 +3,28 @@ import { Button } from 'antd';
 import style from "./style.module.scss";
 
 const AreaList = (props, ref) => {
-    const [list, setList] = useState([]);
+    const [children, setChildren] = useState(props.children);
     const handleAddButton = () => {
-        const newList = [...list];
-        newList.push({});
-        setList(newList);
+        const newChildren = [...children];
+        newChildren.push({});
+        setChildren(newChildren);
     }
 
     const handleDeleteButton = (index) => {
-        const newList = [...list];
-        newList.splice(index, 1);
-        setList(newList);
+        const newChildren = [...children];
+        newChildren.splice(index, 1);
+        setChildren(newChildren);
     }
 
     useImperativeHandle(ref, () => ({
-        list
+        children
     }));
 
     return (
         <div>
             <ul className={style.list}>
                 {
-                    list.map((item, index) => (
+                    children.map((item, index) => (
                         <li className={style.item} key={index}>
                             <span className={style.content}>当前区块内容为空</span>
                             <span>

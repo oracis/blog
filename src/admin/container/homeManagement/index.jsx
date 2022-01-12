@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Button, Layout, Menu } from 'antd';
 import style from "./style.module.scss";
 import AreaList from "../areaList";
+import { parseDataFromString } from "../../../common/util";
 
 const { Header, Sider, Content } = Layout;
 
@@ -11,13 +12,17 @@ const useCollapsed = () => {
     return { collapsed, toggle };
 }
 
+const schema = parseDataFromString(window.localStorage.schema);
+
 const HomeManagement = () => {
     const { collapsed, toggle } = useCollapsed();
     const handleHomePageRedirect = () => window.location.href="/";
     const areaListRef = useRef();
 
     const handleSaveButton = () => {
-
+        const children = areaListRef.current.children;
+        const schema = { name: "Page", attributes: {}, children };
+        window.localStorage.schema = JSON.stringify(schema);
     }
 
     return (
@@ -37,7 +42,7 @@ const HomeManagement = () => {
                     <span className="iconfont" onClick={toggle} dangerouslySetInnerHTML={{__html: collapsed ? "&#xe62c;" : "&#xe629;"}} />
                 </Header>
                 <Content className={style.content}>
-                    <AreaList ref={areaListRef}/>
+                    <AreaList ref={areaListRef} children={schema.children || []} />
                     <div className={style.save}>
                         <Button type="primary" onClick={handleSaveButton}>保存区块配置</Button>
                     </div>
