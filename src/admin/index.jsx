@@ -6,8 +6,6 @@ import "antd/dist/antd.min.css";
 import "./style.scss";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <HomeManagement />
-  </React.StrictMode>,
+    <HomeManagement />,
   document.getElementById('root')
 );
