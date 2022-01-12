@@ -20,9 +20,13 @@ const HomeManagement = () => {
     const areaListRef = useRef();
 
     const handleSaveButton = () => {
-        const { getChildrenSchema } = areaListRef.current;
+        const getChildrenSchema = areaListRef.current.getChildrenSchema;
         const schema = { name: "Page", attributes: {}, children: getChildrenSchema() };
         window.localStorage.schema = JSON.stringify(schema);
+    }
+
+    const handleResetButton = () => {
+        areaListRef.current.resetChildrenSchema();
     }
 
     return (
@@ -43,8 +47,9 @@ const HomeManagement = () => {
                 </Header>
                 <Content className={style.content}>
                     <AreaList ref={areaListRef} children={schema.children || []} />
-                    <div className={style.save}>
+                    <div className={style.buttons}>
                         <Button type="primary" onClick={handleSaveButton}>保存区块配置</Button>
+                        <Button className={style.reset} type="primary" onClick={handleResetButton}>重置区块配置</Button>
                     </div>
                 </Content>
             </Layout>

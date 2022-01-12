@@ -15,6 +15,9 @@ const AreaItem = (props, ref) => {
     useImperativeHandle(ref, () => ({
         getItemSchema: () => {
             return itemSchema;
+        },
+        resetItemSchema: (item) => {
+            setItemSchema(item);
         }
     }));
 
@@ -39,13 +42,13 @@ const AreaItem = (props, ref) => {
 
     return (
         <li className={style.item} key={index}>
-            <span className={style.content} onClick={showModal}>当前区块内容为空</span>
+            <span className={style.content} onClick={showModal}>{itemSchema && itemSchema.name ? itemSchema.name + " 组件" : "当前区块内容为空"}</span>
             <span>
                 <Button size="small" type="dashed" danger onClick={() => removeItemFromChildren(index)}>删除</Button>
             </span>
 
             <Modal title="组件选择" visible={isModalVisible} cancelText="取消" okText="确认" onOk={handleModalConfirm} onCancel={handleModalCancel}>
-                <Select value={tempItemSchema.name} onChange={handleSelectorChange}>
+                <Select value={tempItemSchema && tempItemSchema.name || ""} onChange={handleSelectorChange}>
                     {
                         Object.keys(SELECT_OPTIONS).map(key => (
                             <Option value={key} key={key}>{SELECT_OPTIONS[key]}</Option>
@@ -53,7 +56,6 @@ const AreaItem = (props, ref) => {
                     }
                 </Select>
             </Modal>
-        }
         </li>
     );
 }

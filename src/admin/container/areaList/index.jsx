@@ -28,11 +28,17 @@ const AreaList = (props, ref) => {
         getChildrenSchema: () => {
             const childrenSchema = [];
             let itemSchema;
-            children.map((item, index) => {
+            children.forEach((item, index) => {
                 itemSchema = refs[index].current.getItemSchema();
                 childrenSchema.push(itemSchema);
             });
             return childrenSchema;
+        },
+        resetChildrenSchema: () => {
+            setChildren(props.children);
+            children.forEach((child, index) => {
+                refs[index].current.resetItemSchema(child);
+            })
         }
     }));
 
