@@ -7,7 +7,7 @@ const { Option } = Select;
 const SELECT_OPTIONS = { Banner: "Banner 组件", List: "List 组件", Footer: "Footer 组件" };
 
 const AreaItem = (props, ref) => {
-    const { index, item, removeItemFromChildren } = props;
+    const { index, item, removeItemFromChildren, changeItemFromChildren } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [itemSchema, setItemSchema] = useState(item);
     const [tempItemSchema, setTempItemSchema] = useState(item);
@@ -30,6 +30,7 @@ const AreaItem = (props, ref) => {
     const handleModalConfirm = () => {
         setIsModalVisible(false);
         setItemSchema(tempItemSchema);
+        changeItemFromChildren(index, tempItemSchema);
     }
 
     const handleModalCancel = () => {
