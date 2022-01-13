@@ -1,4 +1,4 @@
-import React, {useState, useImperativeHandle, forwardRef, createRef, useMemo} from "react";
+import React, {useState, useImperativeHandle, forwardRef, createRef, useMemo, useEffect} from "react";
 import { Button } from 'antd';
 import style from "./style.module.scss";
 import AreaItem from "../areaItem";
@@ -7,6 +7,10 @@ let refs = [];
 
 const AreaList = (props, ref) => {
     const [children, setChildren] = useState(props.children);
+
+    useEffect(() => {
+        setChildren(props.children);
+    }, [props.children]);
 
     useMemo(() => {
         refs = children.map(item => createRef());
@@ -33,12 +37,6 @@ const AreaList = (props, ref) => {
                 childrenSchema.push(itemSchema);
             });
             return childrenSchema;
-        },
-        resetChildrenSchema: () => {
-            setChildren(props.children);
-            children.forEach((child, index) => {
-                refs[index].current.resetItemSchema(child);
-            })
         }
     }));
 

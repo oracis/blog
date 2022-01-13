@@ -12,10 +12,11 @@ const useCollapsed = () => {
     return { collapsed, toggle };
 }
 
-const schema = parseDataFromString(window.localStorage.schema);
+const initSchema = parseDataFromString(window.localStorage.schema);
 
 const HomeManagement = () => {
     const { collapsed, toggle } = useCollapsed();
+    const [schema, setSchema] = useState(initSchema);
     const handleHomePageRedirect = () => window.location.href="/";
     const areaListRef = useRef();
 
@@ -26,7 +27,8 @@ const HomeManagement = () => {
     }
 
     const handleResetButton = () => {
-        areaListRef.current.resetChildrenSchema();
+        const currentSchema = parseDataFromString(window.localStorage.schema);
+        setSchema(currentSchema);
     }
 
     return (
