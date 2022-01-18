@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import { Button, Layout, Menu } from 'antd';
 import style from "./style.module.scss";
 import AreaList from "../areaList";
@@ -19,6 +20,11 @@ const HomeManagement = () => {
     const [schema, setSchema] = useState(initSchema);
     const handleHomePageRedirect = () => window.location.href="/";
     const areaListRef = useRef();
+
+    const state = useSelector((state) => {
+        console.log(state);
+        return {};
+    });
 
     const handleSaveButton = () => {
         const getChildrenSchema = areaListRef.current.getChildrenSchema;
