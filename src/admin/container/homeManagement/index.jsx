@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Layout, Menu } from 'antd';
 import style from "./style.module.scss";
-import AreaList from "../areaList";
+import AreaList from "./component/areaList";
 import { parseDataFromString } from "../../../common/util";
+import { getChangeSchemaAction } from "./store/action";
 
 const { Header, Sider, Content } = Layout;
 
@@ -16,11 +17,8 @@ const useCollapsed = () => {
 const useStore = () => {
     const dispatch = useDispatch();
     const schema = useSelector(state => state.homeManagement.schema);
-    const changeSchema = (value) => {
-        dispatch({
-            type: "CHANGE_SCHEMA",
-            value
-        });
+    const changeSchema = value => {
+        dispatch(getChangeSchemaAction(value));
     }
     return { schema, changeSchema };
 }

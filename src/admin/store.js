@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from "redux";
-import homeManagementReducer from "./reducer/homeManagementReducer";
+import homeManagementReducer from "./container/homeManagement/store/reducer";
 
 const reducers = combineReducers({
     homeManagement: homeManagementReducer
