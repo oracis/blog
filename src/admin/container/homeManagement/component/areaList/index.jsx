@@ -5,13 +5,17 @@ import { getAddItemToChildrenAction } from "../../store/action";
 import AreaItem from "../areaItem";
 import style from "./style.module.scss";
 
-const AreaList = () => {
+const useChildren = () => {
     const dispatch = useDispatch();
     const children = useSelector(state => state.homeManagement.schema?.children || []);
+    const addChild = () => dispatch(getAddItemToChildrenAction());
+    return { children, addChild };
+}
 
-    const addItemToChildren = () => {
-        dispatch(getAddItemToChildrenAction());
-    }
+const AreaList = () => {
+    const { children, addChild } = useChildren();
+
+    const addItemToChildren = () => addChild();
 
     return (
         <div>

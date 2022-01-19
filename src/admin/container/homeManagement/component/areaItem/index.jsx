@@ -7,12 +7,19 @@ import style from "./style.module.scss";
 const { Option } = Select;
 const SELECT_OPTIONS = { Banner: "Banner 组件", List: "List 组件", Footer: "Footer 组件" };
 
-const AreaItem = (props) => {
+const useChild = (index) => {
     const dispatch = useDispatch();
+    const pageChild = useSelector(state => state.homeManagement.schema.children?.[index]);
+    const changePageChild = (index, child) => dispatch(getChangeItemFromChildrenAction(index, child));
+    const removePageChild = index => dispatch(getDeleteItemFromChildrenAction(index));
+    return { pageChild, changePageChild, removePageChild };
+}
+
+const AreaItem = (props) => {
     const { index } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const itemSchema = useSelector(state => state.homeManagement.schema.children?.[index]);
-    const [tempItem, setTempItem] = useState(itemSchema);
+    const { pageChild, changePageChild, removePageChild } = useChild(index);
+    const [tempItem, setTempItem] = useState(pageChild);
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -20,26 +27,21 @@ const AreaItem = (props) => {
 
     const handleModalConfirm = () => {
         setIsModalVisible(false);
-        dispatch(getChangeItemFromChildrenAction(index, tempItem));
+        changePageChild(index, tempItem);
     }
 
     const handleModalCancel = () => {
         setIsModalVisible(false);
-        setTempItem(itemSchema);
+        setTempItem(pageChild);
     }
 
-    const handleSelectorChange = (value) => {
-        const schema = { name: value, attributes: {}, children: [] };
-        setTempItem(schema);
-    }
+    const handleSelectorChange = value => setTempItem({ name: value, attributes: {}, children: [] });
 
-    const removeItemFromChildren = () => {
-        dispatch(getDeleteItemFromChildrenAction(index));
-    }
+    const removeItemFromChildren = () => removePageChild(index);
 
     return (
         <li className={style.item} key={index}>
-            <span className={style.content} onClick={showModal}>{itemSchema.name ? itemSchema.name + " 组件" : "当前区块内容为空"}</span>
+            <span className={style.content} onClick={showModal}>{pageChild.name ? pageChild.name + " 组件" : "当前区块内容为空"}</span>
             <span>
                 <Button size="small" type="dashed" danger onClick={removeItemFromChildren}>删除</Button>
             </span>
