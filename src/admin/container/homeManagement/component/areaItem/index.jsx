@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { SortableElement } from 'react-sortable-hoc';
 import { getChangeItemFromChildrenAction, getDeleteItemFromChildrenAction } from "../../store/action";
 import { Modal, Button, Select } from 'antd';
 import style from "./style.module.scss";
@@ -9,14 +10,14 @@ const SELECT_OPTIONS = { Banner: "Banner 组件", List: "List 组件", Footer: "
 
 const useChild = (index) => {
     const dispatch = useDispatch();
-    const pageChild = useSelector(state => state.homeManagement.schema.children?.[index]);
+    const pageChild = useSelector(state => state.homeManagement.schema.children?.[index] || {});
     const changePageChild = (index, child) => dispatch(getChangeItemFromChildrenAction(index, child));
     const removePageChild = index => dispatch(getDeleteItemFromChildrenAction(index));
     return { pageChild, changePageChild, removePageChild };
 }
 
 const AreaItem = (props) => {
-    const { index } = props;
+    const { value: index } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
     const { pageChild, changePageChild, removePageChild } = useChild(index);
     const [tempItem, setTempItem] = useState(pageChild);
@@ -59,4 +60,4 @@ const AreaItem = (props) => {
     );
 }
 
-export default AreaItem;
+export default SortableElement(AreaItem);
