@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { SortableElement } from 'react-sortable-hoc';
 import { getChangeItemFromChildrenAction, getDeleteItemFromChildrenAction } from "../../store/action";
 import { Modal, Button, Select } from 'antd';
+import Banner from "./component/Banner";
+import List from "./component/List";
+import Footer from "./component/Footer";
 import style from "./style.module.scss";
 
 const { Option } = Select;
 const SELECT_OPTIONS = { Banner: "Banner 组件", List: "List 组件", Footer: "Footer 组件" };
+
+const map = { Banner, List, Footer };
 
 const useChild = (index) => {
     const dispatch = useDispatch();
@@ -40,6 +46,18 @@ const AreaItem = (props) => {
 
     const removeItemFromChildren = () => removePageChild(index);
 
+    const changeTempItemAttribute = (key, value) => {
+        const cloneTemp = _.cloneDeep(tempItem);
+        cloneTemp.attributes[key] = value;
+        setTempItem(cloneTemp);
+    }
+
+    const getComponent = () => {
+        const { name } = tempItem;
+        const Component = map[name];
+        return Component ? <Component {...tempItem} changeAttribute={changeTempItemAttribute} /> : null;
+    }
+
     return (
         <li className={style.item} key={index}>
             <span className={style.content} onClick={showModal}>{pageChild.name ? pageChild.name + " 组件" : "当前区块内容为空"}</span>
@@ -55,6 +73,9 @@ const AreaItem = (props) => {
                         ))
                     }
                 </Select>
+                {
+                    getComponent()
+                }
             </Modal>
         </li>
     );
