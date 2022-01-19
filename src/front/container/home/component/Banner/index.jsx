@@ -1,11 +1,9 @@
 import style from "./style.module.scss";
-import {parseDataFromString} from "../../../../../common/util";
 
-const schema = parseDataFromString(window.localStorage.schema);
-const title = schema.children?.[0]?.attributes?.title || "Robin 的个人小站";
-const description = schema.children?.[0]?.attributes?.description || "低代码+云原生” ，已然成为大厂全栈解决方案新宠！本课程中，将结合最新实践经验，以个人博客的开发为例，带领大家从解决问题角度出发，通过 “ 前端配置化+后端 Serverless” 全流程实践，助你先人一步把握技术新潮流，获取中大厂高薪人才必备的 “硬核” 技能！";
+const Banner = ({ schema }) => {
+    const title = schema?.attributes?.title || "Robin 的个人小站";
+    const description = schema?.attributes?.description || "低代码+云原生” ，已然成为大厂全栈解决方案新宠！本课程中，将结合最新实践经验，以个人博客的开发为例，带领大家从解决问题角度出发，通过 “ 前端配置化+后端 Serverless” 全流程实践，助你先人一步把握技术新潮流，获取中大厂高薪人才必备的 “硬核” 技能！";
 
-const Banner = () => {
     return (
         <div className="wrapper">
             <div className={style.banner}>
