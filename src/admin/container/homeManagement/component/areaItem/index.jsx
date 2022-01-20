@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import _ from "lodash";
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { SortableElement } from 'react-sortable-hoc';
+import _ from "lodash";
 import { getChangeItemFromChildrenAction, getDeleteItemFromChildrenAction } from "../../store/action";
 import { Modal, Button, Select } from 'antd';
 import Banner from "./component/Banner";
@@ -28,6 +28,10 @@ const AreaItem = (props) => {
     const { pageChild, changePageChild, removePageChild } = useChild(index);
     const [tempItem, setTempItem] = useState(pageChild);
 
+    useEffect(() => {
+        setTempItem(pageChild);
+    }, [pageChild])
+
     const showModal = () => {
         setIsModalVisible(true);
     }
@@ -46,16 +50,20 @@ const AreaItem = (props) => {
 
     const removeItemFromChildren = () => removePageChild(index);
 
-    const changeTempItemAttribute = (key, value) => {
-        const cloneTemp = _.cloneDeep(tempItem);
-        cloneTemp.attributes[key] = value;
-        setTempItem(cloneTemp);
+    const changeTempItemAttributes = (attributesObj) => {
+        console.log(attributesObj, "attributesObj")
+        const newTemp = _.cloneDeep(tempItem);
+        for (let [key, value] of Object.entries(attributesObj)) {
+            newTemp.attributes[key] = value;
+        }
+        console.log(newTemp)
+        setTempItem(newTemp);
     }
 
     const getComponent = () => {
         const { name } = tempItem;
         const Component = map[name];
-        return Component ? <Component {...tempItem} changeAttribute={changeTempItemAttribute} /> : null;
+        return Component ? <Component {...tempItem} changeAttributes={changeTempItemAttributes} /> : null;
     }
 
     return (

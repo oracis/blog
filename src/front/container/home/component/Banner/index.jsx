@@ -1,15 +1,22 @@
 import style from "./style.module.scss";
 
 const Banner = ({ schema }) => {
-    const title = schema?.attributes?.title || "Robin 的个人小站";
-    const description = schema?.attributes?.description || "低代码+云原生” ，已然成为大厂全栈解决方案新宠！本课程中，将结合最新实践经验，以个人博客的开发为例，带领大家从解决问题角度出发，通过 “ 前端配置化+后端 Serverless” 全流程实践，助你先人一步把握技术新潮流，获取中大厂高薪人才必备的 “硬核” 技能！";
+    const { attributes = {} } = schema;
+    const { title, description, showSmallPic, smallPicUrl, backgroundUrl, backgroundHeight } = attributes;
+
+    const styleObj = backgroundHeight ? { height: backgroundHeight + "px" } : {};
+    console.log(styleObj)
 
     return (
         <div className="wrapper">
             <div className={style.banner}>
-                <img className={style.bannerImg} src="https://serverless-learning-static-files.oss-cn-beijing.aliyuncs.com/images/timg.jpg" alt="" />
+                <img className={style.bannerImg} src={backgroundUrl} style={styleObj} alt="" />
                 <div className={style.person}>
-                    <img className={style.avatar} src="https://serverless-learning-static-files.oss-cn-beijing.aliyuncs.com/images/avatar.jpeg" alt="" />
+                    {
+                        (showSmallPic && smallPicUrl)
+                            ? <img className={style.avatar} src={smallPicUrl} alt="" />
+                            : null
+                    }
                     <div className={style.info}>
                         <div className={style.title}>{title}</div>
                         <div className={style.description}>{description}</div>
