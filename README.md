@@ -5,8 +5,12 @@
         {
             name: "Banner",
             attributes: { 
-                title: "title",
-                description: "desc"
+                title: "",
+                description: "",
+                showSmallPic: "",
+                smallPicUrl: "",
+                backgroundUrl: "",
+                backgroundHeight: ""
             },
             children: []
         },

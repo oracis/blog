@@ -53,7 +53,6 @@ const Banner = (props) => {
                        </div>)
                     : null
             }
-
             <div className={style.row}>
                 <span className={style.label}>背景图片路径</span>
                 <Input
