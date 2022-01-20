@@ -51,12 +51,10 @@ const AreaItem = (props) => {
     const removeItemFromChildren = () => removePageChild(index);
 
     const changeTempItemAttributes = (attributesObj) => {
-        console.log(attributesObj, "attributesObj")
         const newTemp = _.cloneDeep(tempItem);
         for (let [key, value] of Object.entries(attributesObj)) {
             newTemp.attributes[key] = value;
         }
-        console.log(newTemp)
         setTempItem(newTemp);
     }
 
