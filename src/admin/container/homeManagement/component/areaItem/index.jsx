@@ -58,10 +58,29 @@ const AreaItem = (props) => {
         setTempItem(newTemp);
     }
 
+    const addChildToTempItemChildren = () => {
+        const newTemp = _.cloneDeep(tempItem);
+        newTemp.children.push({});
+        setTempItem(newTemp);
+    }
+
+    const deleteChildToTempItemChildren = (index) => {
+        const newTemp = _.cloneDeep(tempItem);
+        newTemp.children.splice(index, 1);
+        setTempItem(newTemp);
+    }
+
     const getComponent = () => {
         const { name } = tempItem;
         const Component = map[name];
-        return Component ? <Component {...tempItem} changeAttributes={changeTempItemAttributes} /> : null;
+        return Component
+            ? <Component
+                {...tempItem}
+                changeAttributes={changeTempItemAttributes}
+                addChild={addChildToTempItemChildren}
+                deleteChild={deleteChildToTempItemChildren}
+              />
+            : null;
     }
 
     return (

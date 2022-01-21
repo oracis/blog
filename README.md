@@ -15,22 +15,19 @@
             children: []
         },
         {
-            name: "CoursesList",
+            name: "List",
             attributes: {},
-            children: []
+            children: [
+                    {
+                        title: "",
+                        description: "",
+                        imageUrl: "",
+                        link: ""
+                    }
+                ]
         },
         {
             name: "Footer",
-            attributes: {},
-            children: []
-        },
-        {
-            name: "area",
-            attributes: {},
-            children: []
-        },
-        {
-            name: "area",
             attributes: {},
             children: []
         }
