@@ -16,21 +16,22 @@ const map = { Banner, List, Footer };
 
 const useChild = (index) => {
     const dispatch = useDispatch();
-    const pageChild = useSelector(state => state.homeManagement.schema.children?.[index] || {});
+    const draftPageChild = useSelector(state => state.homeManagement.schema.children?.[index] || {});
+    const pageChild = _.cloneDeep(draftPageChild);
     const changePageChild = (index, child) => dispatch(getChangeItemFromChildrenAction(index, child));
     const removePageChild = index => dispatch(getDeleteItemFromChildrenAction(index));
-    return { pageChild, changePageChild, removePageChild };
+    return { draftPageChild, pageChild, changePageChild, removePageChild };
 }
 
 const AreaItem = (props) => {
     const { value: index } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const { pageChild, changePageChild, removePageChild } = useChild(index);
+    const { pageChild, draftPageChild, changePageChild, removePageChild } = useChild(index);
     const [tempItem, setTempItem] = useState(pageChild);
 
     useEffect(() => {
         setTempItem(pageChild);
-    }, [pageChild])
+    }, [draftPageChild])
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -51,7 +52,7 @@ const AreaItem = (props) => {
     const removeItemFromChildren = () => removePageChild(index);
 
     const changeTempItemAttributes = (attributesObj) => {
-        const newTemp = _.cloneDeep(tempItem);
+        const newTemp = { ...tempItem };
         for (let [key, value] of Object.entries(attributesObj)) {
             newTemp.attributes[key] = value;
         }
@@ -59,14 +60,31 @@ const AreaItem = (props) => {
     }
 
     const addChildToTempItemChildren = () => {
-        const newTemp = _.cloneDeep(tempItem);
-        newTemp.children.push({});
+        const newTemp = { ...tempItem };
+        newTemp.children.push({
+            name: "Item",
+            attributes: {
+                title: "",
+                description: "",
+                imageUrl: "",
+                link: ""
+            },
+            children: []
+        });
         setTempItem(newTemp);
     }
 
     const deleteChildToTempItemChildren = (index) => {
-        const newTemp = _.cloneDeep(tempItem);
+        const newTemp = { ...tempItem };
         newTemp.children.splice(index, 1);
+        setTempItem(newTemp);
+    }
+
+    const changeChildAttributesToTempItemChildren = (index, key, value) => {
+        const newChild = { ...tempItem.children[index] };
+        newChild.attributes[key] = value;
+        const newTemp = { ...tempItem };
+        newTemp.children.splice(index, 1, newChild);
         setTempItem(newTemp);
     }
 
@@ -79,6 +97,7 @@ const AreaItem = (props) => {
                 changeAttributes={changeTempItemAttributes}
                 addChild={addChildToTempItemChildren}
                 deleteChild={deleteChildToTempItemChildren}
+                changeChildAttributes={changeChildAttributesToTempItemChildren}
               />
             : null;
     }

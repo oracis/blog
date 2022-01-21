@@ -18,13 +18,17 @@
             name: "List",
             attributes: {},
             children: [
-                    {
+                {
+                    name: "Item",
+                    attributes: {
                         title: "",
                         description: "",
                         imageUrl: "",
                         link: ""
-                    }
-                ]
+                    },
+                    children: []
+                }
+            ]
         },
         {
             name: "Footer",

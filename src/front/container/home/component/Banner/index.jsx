@@ -5,7 +5,6 @@ const Banner = ({ schema }) => {
     const { title, description, showSmallPic, smallPicUrl, backgroundUrl, backgroundHeight } = attributes;
 
     const styleObj = backgroundHeight ? { height: backgroundHeight + "px" } : {};
-    console.log(styleObj)
 
     return (
         <div className="wrapper">
