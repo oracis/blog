@@ -32,8 +32,20 @@
         },
         {
             name: "Footer",
-            attributes: {},
-            children: []
+            attributes: {
+                copyright: "",
+                record: ""
+            },
+            children: [
+                {
+                    name: "Item",
+                    attributes: {
+                        title: "",
+                        link: ""
+                    },
+                    children: []
+                }
+            ]
         }
     ]
 }

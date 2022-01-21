@@ -1,14 +1,24 @@
 import style from "./style.module.scss";
 
-const Banner = () => {
+const Banner = ({ schema }) => {
+    const { attributes = {}, children = [] } = schema;
+    const { copyright, record } = attributes;
     return (
         <div className="wrapper">
             <div className={style.footer}>
                <ul className={style.list}>
-                   <li className={style.item}>
-                       <a className={style.link} href="./admin.html">进入管理页面</a>
-                   </li>
+                   {
+                       children.map(({ attributes: { title, link } = {} }, index) => (
+                           <li className={style.item} key={index}>
+                               <a className={style.link} href={link} target="_blank" rel="noreferrer">{title}</a>
+                           </li>
+                       ))
+                   }
                </ul>
+                <div className={style.copyright}>
+                    <span>{copyright}</span>
+                    <span className={style.record}>{record}</span>
+                </div>
             </div>
         </div>
     );

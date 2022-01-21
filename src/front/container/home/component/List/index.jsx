@@ -9,7 +9,7 @@ const List = ({ schema }) => {
                 {
                     children.map(({ attributes: { title, description, imageUrl, link } = {} }, index) => (
                         <li className={style.item} key={index}>
-                            <a className={style.link} href={link} target="_blank">
+                            <a className={style.link} href={link} target="_blank" rel="noreferrer">
                                 <img className={style.img} src={imageUrl} alt="" />
                                 <h4 className={style.title}>{title}</h4>
                                 <p className={style.desc}>{description}</p>

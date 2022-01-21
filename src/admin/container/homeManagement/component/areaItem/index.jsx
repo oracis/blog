@@ -16,22 +16,21 @@ const map = { Banner, List, Footer };
 
 const useChild = (index) => {
     const dispatch = useDispatch();
-    const draftPageChild = useSelector(state => state.homeManagement.schema.children?.[index] || {});
-    const pageChild = _.cloneDeep(draftPageChild);
+    const pageChild = useSelector(state => state.homeManagement.schema.children?.[index] || {});
     const changePageChild = (index, child) => dispatch(getChangeItemFromChildrenAction(index, child));
     const removePageChild = index => dispatch(getDeleteItemFromChildrenAction(index));
-    return { draftPageChild, pageChild, changePageChild, removePageChild };
+    return { pageChild, changePageChild, removePageChild };
 }
 
 const AreaItem = (props) => {
     const { value: index } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const { pageChild, draftPageChild, changePageChild, removePageChild } = useChild(index);
-    const [tempItem, setTempItem] = useState(pageChild);
+    const { pageChild, changePageChild, removePageChild } = useChild(index);
+    const [tempItem, setTempItem] = useState(_.cloneDeep(pageChild));
 
     useEffect(() => {
-        setTempItem(pageChild);
-    }, [draftPageChild])
+        setTempItem(_.cloneDeep(pageChild));
+    }, [pageChild])
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -44,7 +43,7 @@ const AreaItem = (props) => {
 
     const handleModalCancel = () => {
         setIsModalVisible(false);
-        setTempItem(pageChild);
+        setTempItem(_.cloneDeep(pageChild));
     }
 
     const handleSelectorChange = value => setTempItem({ name: value, attributes: {}, children: [] });
@@ -61,14 +60,21 @@ const AreaItem = (props) => {
 
     const addChildToTempItemChildren = () => {
         const newTemp = { ...tempItem };
+        let attributes = {
+            title: "",
+            description: "",
+            imageUrl: "",
+            link: ""
+        };
+        if (newTemp.name === "Footer") {
+            attributes = {
+                title: "",
+                link: ""
+            };
+        }
         newTemp.children.push({
             name: "Item",
-            attributes: {
-                title: "",
-                description: "",
-                imageUrl: "",
-                link: ""
-            },
+            attributes,
             children: []
         });
         setTempItem(newTemp);

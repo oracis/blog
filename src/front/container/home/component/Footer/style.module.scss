@@ -1,17 +1,35 @@
 .footer {
   position: relative;
-  height: 60px;
-  line-height: 60px;
   margin-bottom: 15px;
+  padding: 10px 20px;
 
   .list {
     list-style-type: none;
+    padding: 0;
+    margin: 0;
 
     .item {
       .link {
-        color: cornflowerblue;
         text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        line-height: 28px;
+        color: #545c63;
+        margin-right: 24px;
+        font-weight: 300;
       }
+    }
+  }
+
+  .copyright {
+    font-size: 12px;
+    text-align: left;
+    color: #93999f;
+    line-height: 24px;
+    font-weight: 300;
+
+    .record {
+      margin-left: 15px;
     }
   }
 }

@@ -11,7 +11,7 @@ const initSchema = parseDataFromString(window.localStorage.schema, {
 
 const initState = { schema: initSchema };
 
-export default (state = initState, action) => produce(state, draft => {
+const reducer = (state = initState, action) => produce(state, draft => {
     switch (action.type) {
         case CHANGE_SCHEMA:
             draft.schema = action.value;
@@ -32,3 +32,5 @@ export default (state = initState, action) => produce(state, draft => {
             break;
     }
 });
+
+export default reducer;

@@ -1,7 +1,6 @@
 import React from "react";
 import { Input, Switch } from 'antd';
 import style from "./style.module.scss";
-import commonStyle from "../style.module.scss";
 
 const { TextArea } = Input;
 
@@ -16,7 +15,7 @@ const Banner = (props) => {
     }
 
     return (
-        <div className={commonStyle.wrapper}>
+        <div className={style.wrapper}>
             <div className={style.row}>
                 <span className={style.label}>页面标题</span>
                 <Input
