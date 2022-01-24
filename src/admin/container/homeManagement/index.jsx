@@ -4,11 +4,11 @@ import { Button } from 'antd';
 import style from "./style.module.scss";
 import AreaList from "./component/areaList";
 import { parseDataFromString } from "../../../common/util";
-import { getChangeSchemaAction } from "./store/action";
+import { getChangeSchemaAction } from "../../store/action";
 
 const useStore = () => {
     const dispatch = useDispatch();
-    const schema = useSelector(state => state.homeManagement.schema);
+    const schema = useSelector(state => state.common.schema);
     const changeSchema = value => {
         dispatch(getChangeSchemaAction(value));
     }

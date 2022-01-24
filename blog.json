@@ -1,0 +1,63 @@
+{
+    "name": "Page",
+    "attributes": {},
+    "children": [
+        {
+            "name": "Banner",
+            "attributes": {
+                "title": "Robin 的个人小站",
+                "description": "\"低代码+云原生” ，已然成为大厂全栈解决方案新宠！本课程中，将结合最新实践经验，以个人博客的开发为例，带领大家从解决问题角度出发，通过 “ 前端配置化+后端 Serverless” 全流程实践，助你先人一步把握技术新潮流，获取中大厂高薪人才必备的 “硬核” 技能！\"",
+                "showLogo": true,
+                "logoUrl": "logo",
+                "backgroundUrl": "https://serverless-learning-static-files.oss-cn-beijing.aliyuncs.com/images/timg.jpg",
+                "backgroundHeight": "200",
+                "showSmallPic": true,
+                "smallPicUrl": "https://serverless-learning-static-files.oss-cn-beijing.aliyuncs.com/images/avatar.jpeg"
+            },
+            "children": []
+        },
+        {
+            "name": "List",
+            "attributes": {},
+            "children": [
+                {
+                    "name": "Item",
+                    "attributes": {
+                        "title": "Vue3 系统入门与项目实战12",
+                        "description": "课程从 Vue3 基础语法，到组件原理、动画、代码设计，再到新语法扩展，全面系统地梳理 Vue 知识点。学习过程中，老师将倾囊相授多年的“避坑经验” ，带你以企业级代码质量和工程开发流程完成“京东到家”应用，实现对框架的彻底掌握。",
+                        "imageUrl": "https://serverless-learning-static-files.oss-cn-beijing.aliyuncs.com/images/course%20vue3.png",
+                        "link": "http://www.imooc.com"
+                    },
+                    "children": []
+                },
+                {
+                    "name": "Item",
+                    "attributes": {
+                        "title": "前端要学的测试课 从Jest入门到 TDD/BDD双实战",
+                        "description": "课程包括前端自动化测试框架 Jest 的讲解，React 中 Enzyme 组件测试工具的讲解，Vue-test-utils 的讲解，以及 TDD，BDD 测试模式的讲解，单元测试，集成测试的讲解。让你形成自己的测试方法论，提高核心竞争力。",
+                        "imageUrl": "https://serverless-learning-static-files.oss-cn-beijing.aliyuncs.com/images/jest.jpg",
+                        "link": "http://www.imooc.com"
+                    },
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "Footer",
+            "attributes": {
+                "copyright": "Copyright© 2022",
+                "record": "京ICP备 12003892号-11"
+            },
+            "children": [
+                {
+                    "name": "Item",
+                    "attributes": {
+                        "title": "后台管理页面",
+                        "link": "./admin.html"
+                    },
+                    "children": []
+                }
+            ]
+        }
+    ]
+}

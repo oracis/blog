@@ -1,6 +1,8 @@
 {
     name: "page",
-    attributes: {},
+    attributes: {
+        title: ""
+    },
     children: [
         {
             name: "Banner",

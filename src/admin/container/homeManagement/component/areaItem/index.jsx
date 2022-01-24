@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { SortableElement } from 'react-sortable-hoc';
 import _ from "lodash";
-import { getChangeItemFromChildrenAction, getDeleteItemFromChildrenAction } from "../../store/action";
+import { getChangeItemFromChildrenAction, getDeleteItemFromChildrenAction } from "../../../../store/action";
 import { Modal, Button, Select } from 'antd';
 import Banner from "./component/Banner";
 import List from "./component/List";
@@ -16,7 +16,7 @@ const map = { Banner, List, Footer };
 
 const useChild = (index) => {
     const dispatch = useDispatch();
-    const pageChild = useSelector(state => state.homeManagement.schema.children?.[index] || {});
+    const pageChild = useSelector(state => state.common.schema.children?.[index] || {});
     const changePageChild = (index, child) => dispatch(getChangeItemFromChildrenAction(index, child));
     const removePageChild = index => dispatch(getDeleteItemFromChildrenAction(index));
     return { pageChild, changePageChild, removePageChild };

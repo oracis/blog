@@ -2,13 +2,13 @@ import React from "react";
 import { Button } from 'antd';
 import { useSelector, useDispatch } from "react-redux";
 import { SortableContainer } from 'react-sortable-hoc';
-import { getAddItemToChildrenAction, getChangeItemPositionAction } from "../../store/action";
+import { getAddItemToChildrenAction, getChangeItemPositionAction } from "../../../../store/action";
 import AreaItem from "../areaItem";
 import style from "./style.module.scss";
 
 const useChildren = () => {
     const dispatch = useDispatch();
-    const children = useSelector(state => state.homeManagement.schema?.children || []);
+    const children = useSelector(state => state.common.schema?.children || []);
     const addChild = () => dispatch(getAddItemToChildrenAction());
     const changePosition = (oldIndex, newIndex) => dispatch(getChangeItemPositionAction(oldIndex, newIndex));
     return { children, addChild, changePosition };

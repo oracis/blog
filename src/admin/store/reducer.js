@@ -1,7 +1,7 @@
 import { produce, original } from "immer";
 import { arrayMoveImmutable } from 'array-move';
-import { parseDataFromString } from "../../../../common/util";
-import {ADD_PAGE_ITEM, CHANGE_PAGE_ITEM, CHANGE_PAGE_ITEM_POSITION, CHANGE_SCHEMA, DELETE_PAGE_ITEM} from "./constant";
+import { parseDataFromString } from "../../common/util";
+import { ADD_PAGE_ITEM, CHANGE_PAGE_ITEM, CHANGE_PAGE_ITEM_POSITION, CHANGE_SCHEMA, DELETE_PAGE_ITEM, CHANGE_SCHEMA_ATTRIBUTES } from "./constant";
 
 const initSchema = parseDataFromString(window.localStorage.schema, {
     name: "Page",
@@ -15,6 +15,9 @@ const reducer = (state = initState, action) => produce(state, draft => {
     switch (action.type) {
         case CHANGE_SCHEMA:
             draft.schema = action.value;
+            break;
+        case CHANGE_SCHEMA_ATTRIBUTES:
+            draft.schema.attributes = action.value;
             break;
         case ADD_PAGE_ITEM:
             draft.schema.children.push(action.value);

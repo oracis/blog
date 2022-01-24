@@ -1,6 +1,8 @@
-import { ADD_PAGE_ITEM, CHANGE_SCHEMA, CHANGE_PAGE_ITEM, DELETE_PAGE_ITEM, CHANGE_PAGE_ITEM_POSITION } from "./constant";
+import { ADD_PAGE_ITEM, CHANGE_SCHEMA, CHANGE_PAGE_ITEM, DELETE_PAGE_ITEM, CHANGE_PAGE_ITEM_POSITION, CHANGE_SCHEMA_ATTRIBUTES } from "./constant";
 
 export const getChangeSchemaAction = value => ({ type: CHANGE_SCHEMA, value });
+
+export const getChangeSchemaAttributesAction = value => ({ type: CHANGE_SCHEMA_ATTRIBUTES, value });
 
 export const getAddItemToChildrenAction = () => ({ type: ADD_PAGE_ITEM, value: {} });
 
