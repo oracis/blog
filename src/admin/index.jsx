@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
-import HomeManagement from "./container/homeManagement/";
+import { HashRouter } from "react-router-dom";
 import store  from "./store";
 import "normalize.css";
 import "antd/dist/antd.min.css";
 import "./style.scss";
+import Placement from "./container/Placement";
+
+
 
 ReactDOM.render(
     <Provider store={store}>
-        <HomeManagement />
+        <HashRouter>
+            <Placement />
+        </HashRouter>
     </Provider>,
   document.getElementById('root')
 );

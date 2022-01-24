@@ -1,51 +1,12 @@
-.trigger {
-    padding: 0 24px;
-    font-size: 18px;
-    line-height: 64px;
-    cursor: pointer;
-    transition: color 0.3s;
-    color: #FFFFFF;
+.buttons {
+    display: flex;
+    justify-content: center;
+    border-top: 1px dashed #ccc;
+    padding: 15px 0;
+    margin-top: 15px;
 
-    &.anticon {
-      color: #FFFFFF;
-    }
-
-    &:hover {
-      color: #1890ff;
-    }
-}
-
-.sidebar {
-    :global(.iconfont) {
-        margin-right: 10px;
-    }
-}
-
-.header {
-    &:global(.ant-layout-header) {
-        height: 32px;
-        line-height: 32px;
-    }
-
-    :global(.iconfont) {
-        color: #FFF;
-    }
-}
-
-.content {
-    padding: 15px;
-    height: calc(100vh - 32px);
-
-    .buttons {
-        display: flex;
-        justify-content: center;
-        border-top: 1px dashed #ccc;
-        padding: 15px 0;
-        margin-top: 15px;
-
-        .reset {
-            margin-left: 15px;
-        }
+    .reset {
+        margin-left: 15px;
     }
 }
 
