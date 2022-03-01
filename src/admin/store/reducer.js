@@ -1,13 +1,12 @@
 import { produce, original } from "immer";
 import { arrayMoveImmutable } from 'array-move';
-import { parseDataFromString } from "../../common/util";
 import { ADD_PAGE_ITEM, CHANGE_PAGE_ITEM, CHANGE_PAGE_ITEM_POSITION, CHANGE_SCHEMA, DELETE_PAGE_ITEM, CHANGE_SCHEMA_ATTRIBUTES } from "./constant";
 
-const initSchema = parseDataFromString(window.localStorage.schema, {
+const initSchema = {
     name: "Page",
     attributes: {},
     children: []
-});
+};
 
 const initState = { schema: initSchema };
 

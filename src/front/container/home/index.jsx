@@ -1,12 +1,10 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { parseDataFromString } from "../../../common/util";
 import List from "./component/List";
 import Banner from "./component/Banner";
 import Footer from "./component/Footer";
-import {Helmet} from "react-helmet";
-
-const pageSchema = parseDataFromString(window.localStorage.schema, {});
-const {  children = [], attributes = {} } = pageSchema;
-const { title } = attributes;
+import { Helmet } from "react-helmet";
 
 const map = { Banner, List, Footer };
 
@@ -16,10 +14,23 @@ const render = (item, index) => {
 }
 
 const Home = () => {
+    const [children, setChildren] = useState([]);
+    const [attributes, setAttributes] = useState({});
+
+    useEffect(() => {
+        axios.get("/api/schema/getLastOne")
+            .then(result => {
+                const data = result?.data?.data;
+                const pageSchema = parseDataFromString(data.schema, {});
+                const {  children = [], attributes = {} } = pageSchema;
+                setChildren(children);
+                setAttributes(attributes);
+            });
+    }, []);
     return (
         <div>
             <Helmet>
-                <title>{title}</title>
+                <title>{attributes.title}</title>
             </Helmet>
             {
                 children.map((item, index) => (

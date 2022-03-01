@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import {Button, Input} from 'antd';
+import { Button, Input } from 'antd';
 import style from "./style.module.scss";
 import { parseDataFromString } from "../../../common/util";
 import { getChangeSchemaAction, getChangeSchemaAttributesAction } from "../../store/action";
@@ -27,17 +28,23 @@ const BasicSetting = () => {
     const { attributes = {} } = schema;
     const { title = "" } = attributes;
 
-    const changeAttributes = (attributesObj) => {
+    const changeAttributes = attributesObj => {
         changeSchemaAttributes(attributesObj);
-    }
+    };
 
     const handleSaveButton = () => {
-        window.localStorage.schema = JSON.stringify(schema);
-    }
+        axios.post("/api/schema/save", {
+            schema: JSON.stringify(schema)
+        }).then(() => {});
+    };
 
     const handleResetButton = () => {
-        const currentSchema = parseDataFromString(window.localStorage.schema);
-        changeSchema(currentSchema);
+        axios.get("/api/schema/getLastOne")
+            .then(result => {
+                const data = result?.data?.data;
+                const currentSchema = parseDataFromString(data.schema, {});
+                changeSchema(currentSchema);
+            });
     }
 
     return (

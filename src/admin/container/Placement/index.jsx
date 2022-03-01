@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
 import { Layout, Menu } from 'antd';
 import style from "./style.module.scss";
 import HomeManagement from "../homeManagement";
 import BasicSetting from "../BasicSetting";
+import { useDispatch } from "react-redux";
+import { getChangeSchemaAction } from "../../store/action";
+import { parseDataFromString } from "../../../common/util";
 
 const { Header, Sider, Content } = Layout;
+
+const useStore = () => {
+    const dispatch = useDispatch();
+    const changeSchema = value => {
+        dispatch(getChangeSchemaAction(value));
+    }
+    return { changeSchema };
+};
 
 const useCollapsed = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -13,10 +25,19 @@ const useCollapsed = () => {
     return { collapsed, toggle };
 }
 
-
 const Placement = () => {
     const { collapsed, toggle } = useCollapsed();
+    const { changeSchema } = useStore();
     const handleHomePageRedirect = () => window.location.href="/";
+
+    useEffect(() => {
+        axios.get("/api/schema/getLastOne")
+            .then(result => {
+                const data = result?.data?.data;
+                const currentSchema = parseDataFromString(data.schema, {});
+                changeSchema(currentSchema);
+            });
+    }, [changeSchema])
 
     return (
         <Layout>

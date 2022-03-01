@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from 'antd';
 import style from "./style.module.scss";
@@ -13,18 +14,25 @@ const useStore = () => {
         dispatch(getChangeSchemaAction(value));
     }
     return { schema, changeSchema };
-}
+};
 
 const HomeManagement = () => {
     const { schema, changeSchema } = useStore();
+
     const handleSaveButton = () => {
-        window.localStorage.schema = JSON.stringify(schema);
-    }
+        axios.post("/api/schema/save", {
+            schema: JSON.stringify(schema)
+        }).then(() => {});
+    };
 
     const handleResetButton = () => {
-        const currentSchema = parseDataFromString(window.localStorage.schema);
-        changeSchema(currentSchema);
-    }
+        axios.get("/api/schema/getLastOne")
+            .then(result => {
+                const data = result?.data?.data;
+                const currentSchema = parseDataFromString(data.schema, {});
+                changeSchema(currentSchema);
+            });
+    };
 
     return (
         <Fragment>
