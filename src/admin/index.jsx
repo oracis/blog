@@ -8,8 +8,6 @@ import "antd/dist/antd.min.css";
 import "./style.scss";
 import Placement from "./container/Placement";
 
-
-
 ReactDOM.render(
     <Provider store={store}>
         <HashRouter>

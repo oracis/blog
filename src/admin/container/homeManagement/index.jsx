@@ -20,8 +20,11 @@ const HomeManagement = () => {
     const { schema, changeSchema } = useStore();
 
     const handleSaveButton = () => {
+        const { token } = window.localStorage;
         axios.post("/api/schema/save", {
             schema: JSON.stringify(schema)
+        }, {
+            headers: { token }
         }).then(() => {});
     };
 

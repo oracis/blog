@@ -5,6 +5,7 @@ import { Layout, Menu } from 'antd';
 import style from "./style.module.scss";
 import HomeManagement from "../homeManagement";
 import BasicSetting from "../BasicSetting";
+import Login from "../login";
 import { useDispatch } from "react-redux";
 import { getChangeSchemaAction } from "../../store/action";
 import { parseDataFromString } from "../../../common/util";
@@ -29,6 +30,7 @@ const Placement = () => {
     const { collapsed, toggle } = useCollapsed();
     const { changeSchema } = useStore();
     const handleHomePageRedirect = () => window.location.href="/";
+    const authToken = window.localStorage.token;
 
     useEffect(() => {
         axios.get("/api/schema/getLastOne")
@@ -39,7 +41,7 @@ const Placement = () => {
             });
     }, [changeSchema])
 
-    return (
+    return authToken ? (
         <Layout>
             <Sider className={style.sidebar} trigger={null} collapsible collapsed={collapsed}>
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['admin-home']}>
@@ -66,7 +68,7 @@ const Placement = () => {
                 </Content>
             </Layout>
         </Layout>
-    );
+    ) : <Login />;
 }
 
 export default Placement;
