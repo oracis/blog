@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
 import { SortableElement } from 'react-sortable-hoc';
 import _ from "lodash";
-import { getChangeItemFromChildrenAction, getDeleteItemFromChildrenAction } from "../../../../store/action";
 import { Modal, Button, Select } from 'antd';
 import Banner from "./component/Banner";
 import List from "./component/List";
 import Footer from "./component/Footer";
 import style from "./style.module.scss";
+import { useSchemaData } from "../../../../hook/useSchemaData";
 
 const { Option } = Select;
 const SELECT_OPTIONS = { Banner: "Banner 组件", List: "List 组件", Footer: "Footer 组件" };
 
 const map = { Banner, List, Footer };
 
-const useChild = (index) => {
-    const dispatch = useDispatch();
-    const pageChild = useSelector(state => state.common.schema.children?.[index] || {});
-    const changePageChild = (index, child) => dispatch(getChangeItemFromChildrenAction(index, child));
-    const removePageChild = index => dispatch(getDeleteItemFromChildrenAction(index));
-    return { pageChild, changePageChild, removePageChild };
-}
-
 const AreaItem = (props) => {
     const { value: index } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const { pageChild, changePageChild, removePageChild } = useChild(index);
+    const { pageChild, changePageChild, removePageChild } = useSchemaData(index);
     const [tempItem, setTempItem] = useState(_.cloneDeep(pageChild));
 
     useEffect(() => {

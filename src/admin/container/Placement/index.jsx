@@ -1,47 +1,52 @@
 import React, {useEffect, useState} from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import axios from "axios";
 import { Layout, Menu } from 'antd';
+import { initAuthClient, getAuthClient } from "@authing/react-ui-components";
 import style from "./style.module.scss";
 import HomeManagement from "../homeManagement";
 import BasicSetting from "../BasicSetting";
 import Login from "../login";
-import { useDispatch } from "react-redux";
-import { getChangeSchemaAction } from "../../store/action";
 import { parseDataFromString } from "../../../common/util";
+import { useSchemaData } from "../../hook/useSchemaData";
+import request from "../../../common/request";
+import { getLoginStatus, removeLoginData } from "../../utils/login";
 
 const { Header, Sider, Content } = Layout;
 
-const useStore = () => {
-    const dispatch = useDispatch();
-    const changeSchema = value => {
-        dispatch(getChangeSchemaAction(value));
-    }
-    return { changeSchema };
-};
+initAuthClient({
+    appId: "6221f49890de06adf15c9b6f"
+});
 
 const useCollapsed = () => {
     const [collapsed, setCollapsed] = useState(false);
     const toggle = () => setCollapsed(!collapsed);
     return { collapsed, toggle };
-}
+};
 
 const Placement = () => {
     const { collapsed, toggle } = useCollapsed();
-    const { changeSchema } = useStore();
+    const { changeSchema } = useSchemaData();
     const handleHomePageRedirect = () => window.location.href="/";
-    const authToken = window.localStorage.token;
+    const isLogin = getLoginStatus();
+    const photo = window.localStorage.photo;
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+        getAuthClient().logout();
+        removeLoginData();
+        window.location.reload();
+    };
 
     useEffect(() => {
-        axios.get("/api/schema/getLastOne")
+        request.get("/api/schema/getLastOne")
             .then(result => {
-                const data = result?.data?.data;
+                const data = result?.data;
                 const currentSchema = parseDataFromString(data.schema, {});
                 changeSchema(currentSchema);
             });
-    }, [changeSchema])
+    }, [])
 
-    return authToken ? (
+    return isLogin ? (
         <Layout>
             <Sider className={style.sidebar} trigger={null} collapsible collapsed={collapsed}>
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['admin-home']}>
@@ -59,6 +64,7 @@ const Placement = () => {
             <Layout>
                 <Header className={style.header}>
                     <span className="iconfont" onClick={toggle} dangerouslySetInnerHTML={{__html: collapsed ? "&#xe62c;" : "&#xe629;"}} />
+                    <img className={style.avatar} src={photo} alt="" onClick={handleLogout}/>
                 </Header>
                 <Content className={style.content}>
                     <Routes>
@@ -69,6 +75,6 @@ const Placement = () => {
             </Layout>
         </Layout>
     ) : <Login />;
-}
+};
 
 export default Placement;

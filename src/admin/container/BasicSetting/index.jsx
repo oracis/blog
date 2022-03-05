@@ -1,30 +1,12 @@
 import React, { Fragment } from "react";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
 import { Button, Input } from 'antd';
 import style from "./style.module.scss";
 import { parseDataFromString } from "../../../common/util";
-import { getChangeSchemaAction, getChangeSchemaAttributesAction } from "../../store/action";
-
-const useStore = () => {
-    const dispatch = useDispatch();
-    const schema = useSelector(state => state.common.schema);
-    const { attributes = {} } = schema;
-    const changeSchema = value => {
-        dispatch(getChangeSchemaAction(value));
-    };
-    const changeSchemaAttributes = attributesObj => {
-        const newAttributes = { ...attributes };
-        for (let [key, value] of Object.entries(attributesObj)) {
-            newAttributes[key] = value;
-        }
-        dispatch(getChangeSchemaAttributesAction(newAttributes));
-    }
-    return { schema, changeSchema, changeSchemaAttributes };
-}
+import { useSchemaData } from "../../hook/useSchemaData";
+import request from "../../../common/request";
 
 const BasicSetting = () => {
-    const { schema, changeSchema, changeSchemaAttributes } = useStore();
+    const { schema, changeSchema, changeSchemaAttributes } = useSchemaData();
     const { attributes = {} } = schema;
     const { title = "" } = attributes;
 
@@ -34,17 +16,15 @@ const BasicSetting = () => {
 
     const handleSaveButton = () => {
         const { token } = window.localStorage;
-        axios.post("/api/schema/save", {
+        request.post("/api/schema/save", {
             schema: JSON.stringify(schema)
-        }, {
-            headers: { token }
         }).then(() => {});
     };
 
     const handleResetButton = () => {
-        axios.get("/api/schema/getLastOne")
+        request.get("/api/schema/getLastOne")
             .then(result => {
-                const data = result?.data?.data;
+                const data = result?.data;
                 const currentSchema = parseDataFromString(data.schema, {});
                 changeSchema(currentSchema);
             });
